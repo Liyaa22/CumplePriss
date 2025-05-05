@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Feliz Cumple Priss 💜</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #fff5f8;
+      margin: 0;
+      padding: 0;
+      color: #444;
+    }
+
+    header {
+      background-color: #6c0396;
+      color: white;
+      padding: 2rem;
+      text-align: center;
+      border-bottom: 4px solid #b700ff;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 2.5rem;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 20px;
+      padding: 2rem;
+    }
+
+    .envelope {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      cursor: pointer;
+      perspective: 1000px;
+    }
+
+    .envelope .body {
+      background-color: #cfa9ff;
+      width: 100%;
+      height: 100%;
+      border: 2px solid #6c0396;
+      border-radius: 8px;
+      position: absolute;
+      bottom: 0;
+      z-index: 1;
+    }
+
+    .envelope .flap {
+      width: 100%;
+      height: 50%;
+      background-color: #b78aff;
+      position: absolute;
+      top: 0;
+      clip-path: polygon(0 0, 100% 0, 50% 100%);
+      z-index: 2;
+      transform-origin: top center;
+      transition: transform 0.6s ease;
+    }
+
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0,0,0,0.6);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      visibility: hidden;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .modal.open {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    .letter-container {
+      display: flex;
+      flex-direction: row;
+      overflow: hidden;
+      width: 90%;
+      height: 80%;
+      background: #fff;
+      border: 2px solid #6c0396;
+      border-radius: 16px;
+      transition: width 1s ease, height 1s ease;
+    }
+
+    .modal.open .letter-container {
+      width: 95%;
+      height: 85%;
+    }
+
+    .letter-panel {
+      flex: 1;
+      padding: 2rem;
+      min-width: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .letter-text {
+      font-family: 'Courier New', monospace;
+      white-space: pre-wrap;
+      overflow: auto;
+      width: 100%;
+      height: auto;
+      word-wrap: break-word;
+      text-align: left;
+      border: 2px solid #6c0396;
+      padding: 1rem;
+      background-color: #f4f4f4;
+      border-radius: 8px;
+      box-sizing: border-box;
+      max-height: 70%;
+      display: flex;
+      align-items: flex-start;
+      justify-content: flex-start;
+    }
+
+    .letter-media {
+      width: 80%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .letter-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      border-radius: 12px;
+    }
+
+    .letter-media video {
+      width: 60%;
+      max-height: 60%;
+      object-fit: contain;
+      border-radius: 12px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background-color: #6c0396;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Feliz Cumple Priss 💜</h1>
+    <p>Gracias por siempre estar, y por ganarte esa confianza desde que te conocí.</p>
+    <p>Aquí un pequeñito recuerdo de lo poco que tenemos, te quiero un pelín.</p>
+  </header>
+
+  <section class="gallery">
+    <div class="envelope" onclick="openModal(0)">
+      <div class="flap"></div>
+      <div class="body"></div>
+    </div>
+    <div class="envelope" onclick="openModal(1)">
+      <div class="flap"></div>
+      <div class="body"></div>
+    </div>
+    <div class="envelope" onclick="openModal(2)">
+      <div class="flap"></div>
+      <div class="body"></div>
+    </div>
+    <div class="envelope" onclick="openModal(3)">
+      <div class="flap"></div>
+      <div class="body"></div>
+    </div>
+    <div class="envelope" onclick="openModal(4)">
+      <div class="flap"></div>
+      <div class="body"></div>
+    </div>
+    <div class="envelope" onclick="openModal(5)">
+      <div class="flap"></div>
+      <div class="body"></div>
+    </div>
+  </section>
+
+  <div class="modal" id="modal" onclick="closeModal(event)">
+    <div class="letter-container" id="letterContainer">
+      <div class="letter-panel">
+        <div class="letter-text" id="modalText"></div>
+      </div>
+      <div class="letter-panel">
+        <div class="letter-media" id="modalMedia"></div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    Sabes de sobra que te quiero un pelín y que menos que darte este detallito para que lo tengas todo bien guardado y no pierdas ningún recuerdo.
+  </footer>
+
+  <script>
+    const messages = [
+      "Te conoci por error tuyo administrando, y este dibujo me recuerda a cuando te conoci, y ahora despues de tantos años no nos queda tanto para vernos. Sabes de sobra todo lo que pienso, eres de la persona que mas confianza tengo desde hace mucho y te has ganado el que te este contando tantas cosas que sabes que hasta hace no mucho no hubiera contado ni nada. Gracias por ayudarme tanto aunque tengas tus cosas, gracias por intentar abrirme los ojos aun sabiendo lo cabezota que soy y sigo siendo. Gracias por todo, eres una persona super maravillosa, y por muy raro que te suene, te mereces muchisimo, siempre ayudas al resto sin esperar nada a cambio y eso muy poca gente lo hace, aun despues de lo que hice aquella vez sigues estando para todo y eso lo aprecio muchisimo te lo juro. Te has ganado todo lo que te dan, y mucho mas de lo que tu crees, no cambies nunca porfavor.",
+      "Edit que dudo olvidar, nunca me espere este video y aunque fuera por nuestros personajes, que les tengo muchisimo cariño. Es algo que al ver el video pense que realmente era mas por nosotras que por nuestros personajes, y sigo pensandolo. No hace falta que te diga que te quiero un monton aunque pocas veces lo vas a escuchar de mi, pero es que es asi. Lo que me has estado apoyando ultimamente es increible y no sabes lo mucho que has facilitado todo, muchas gracias por decirme realmente lo que me tienes que decir o lo que piensas en vez de decirme lo que quiero escuchar solo para estar bien, duele pero hay cosas que me acabo dando cuenta gracias a eso. Aunque sepas de sobra que no estoy de acuerdo con cosas que piensas tu o piensa gente de mi alrededor sobre eso, hay cosas en las que si lo estoy y me he dado cuenta porque me lo habeis dicho y tu la que mas, gracias priss.",
+      "Foton que pondría de banner en algún sitio, aunque te haya conocido por un juego y unos personajes, cada vez que roleaba decia cosas que realmente pensaba, en plan me caiste bien desde que te conoci y nunca fue solo rol eso y creo que se ha notado o eso espero. Desde el primer momento se notaba que eres buena persona, dabas buenas vibras solo por escucharte hablar, porque realmente no te conocia de otra manera y te juro que se nota muchisimo y ya cuando te conocen bien se te nota muchisimo mas, tienes un corazon increible y me vas a tener para todo lo que necesites o te haga falta siempre porque te lo mereces muchisimo y has estado ahi para mi y ya no solo para mi, para muchisima gente y para gente que no se lo merecia tampoco, pero estuviste ahi porque tienes un pto corazon increible priss, y quien no lo vea o no pueda verlo es una persona super estupida como dirias tu.",
+      "Foton que sacaste mientras estaba afk y me tuviste que llevar cargada por todo el mapa hasta que volviese. Y no queria recordar esto pero se que lo pasate muy mal cuando me dio por alejarme solo para que no notases que estaba mal, queria hablarte mucho antes de lo que lo hice pero me cagaba siempre porque se que estabas mal y volviendo asi por la cara sabiendo todo lo que te hice pasar no me gustaba mucho. Pero escribi el texto igualmente y se lo enseñe a mi hermana y decidio enviarlo ella, bueno, obligarme a hacerlo y es de la mejor cosa que ha podido hacer. Gracias por entender eso, por no estar rarisima luego que seria lo mas normal del mundo y ahora estar asi apoyandome en todo esto que no es nada facil y aunque no me gusta nada que me vean mal, no se como has conseguido que te cuente las cosas que me pasan o que me rayan muchisimo, pero te lo agradezco muchisimo porque aunque yo crea que no me hace falta, si me hacia y me he dado cuenta luego.",
+      "Tus admins de confianza siempre, aunque falte la tutyfruty, he disfrutado muchisimo rolear contigo y con tuty tambien, por eso sigo pensando que deberiamos de volver, porque al final fui muyy feliz ahi y las risas nunca faltaban. Aunque la tuty casi nunca estaba, pero esos años fueron los mejores desde que tengo pc y conoceros ya no solo a vosotros sino a mas personas ha sido increible. Aunque con las unicas que me quedo sois vosotras, os quiero un monton, y guardate bien esto porque dudo volver a decir esto. Estoy siendo demasiado cursi poniendo todo esto, pero al final es la verdad, me distrai de muchisimas cosas gracias a estar todo el dia entreteniendome y divirtiendome y por eso os debo mucho, y mas a ti por todo lo que haces chula.",
+      "Mia solucionando las ralladas de Sara, igual que ahora tu estas solucionando las mias. Gracias y aunque te diga 20000 veces gracias nunca seran suficientes, quiero que enserio si algun dia estas mal que me avises, quiero poder ayudarte igual que lo haces tu conmigo aunque sabes que no me gusta que me ayuden a nada. Que si te sientes sola que me avises que estoy para ti y para lo que necesites, que estoy orgullosisima de ti, de la persona que eres y de la persona que aun te falta por convertirte, que te curras todo muchisimo y haces todo con un corazon increible que es para admirar. Que te mereces todo lo bueno que te pasa y no quiero que dudes de eso nunca. Nunca quiero que te compares, te menosprecies por alguna persona subnormal, que hay muchas en este mundo. Que eres una persona increible priss y no me cansare de repetirtelo chula, que aunque la gente sea una mierda tu sigues portandote bien con ellos y no existe gente asi apenas, eres muy madura para la edad que tienes, por eso por un momento pense que tenias mas edad que yo y me sorprendio ver que no y que eras mas pequeña. No cambies nunca por nadie ni por nada porque vales muchisimo priss, te quiero mucho, disfruta de hoy vale? aunque se que no te gusta mucho este dia, pero te lo mereces mas que nadie.💜"
+    ];
+
+    const mediaContent = [
+      `<img src="s&m.png" alt="Sara y Mia">`,
+      `<video controls><source src="s&m.mp4" type="video/mp4">Tu navegador no soporta videos HTML5.</video>`,
+      `<img src="tumbadas.png" alt="Tumbadas">`,
+      `<img src="foton.png" alt="Foton">`,
+      `<img src="admins.png" alt="Admins">`,
+      `<img src="sentadas2.png" alt="Sentadas">`
+    ];
+
+    function openModal(index) {
+      const modal = document.getElementById('modal');
+      const media = document.getElementById('modalMedia');
+      const text = document.getElementById('modalText');
+      const container = document.getElementById('letterContainer');
+
+      modal.classList.add('open');
+      media.innerHTML = mediaContent[index];
+      text.textContent = messages[index]; // Sin animación
+    }
+
+    function closeModal(e) {
+      if (!e.target.closest('.letter-container')) {
+        document.getElementById('modal').classList.remove('open');
+      }
+    }
+  </script>
+
+</body>
+</html>
