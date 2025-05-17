@@ -9,8 +9,9 @@
       font-family: 'Segoe UI', sans-serif;
       background: #fff5f8;
       margin: 0;
-      padding: 0;
+      padding-bottom: 4rem; /* Ajustamos el padding inferior para el footer fijo */
       color: #444;
+      position: relative; /* Necesario para posicionar el footer fijo */
     }
 
     header {
@@ -31,6 +32,7 @@
       grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
       gap: 20px;
       padding: 2rem;
+      margin-bottom: 3rem; /* Espacio para separar la galería del footer */
     }
 
     .envelope {
@@ -62,6 +64,15 @@
       z-index: 2;
       transform-origin: top center;
       transition: transform 0.6s ease;
+    }
+
+    .envelope.white .body {
+      background-color: #f0f0f0; /* Un gris claro para simular blanco */
+      border-color: #888;
+    }
+
+    .envelope.white .flap {
+      background-color: #ddd;
     }
 
     .modal {
@@ -102,6 +113,16 @@
       height: 85%;
     }
 
+    /* Nueva regla para cuando no hay contenido multimedia */
+    .letter-container.only-text {
+      flex-direction: column; /* Apila el texto verticalmente para que ocupe todo el espacio */
+    }
+
+    .letter-container.only-text .letter-panel {
+      justify-content: flex-start; /* Alinea el texto al inicio */
+      align-items: flex-start;
+    }
+
     .letter-panel {
       flex: 1;
       padding: 2rem;
@@ -124,7 +145,7 @@
       background-color: #f4f4f4;
       border-radius: 8px;
       box-sizing: border-box;
-      max-height: 70%;
+      max-height: 90%; /* Aumentamos la altura máxima para que ocupe más espacio */
       display: flex;
       align-items: flex-start;
       justify-content: flex-start;
@@ -156,6 +177,19 @@
       padding: 1rem;
       background-color: #6c0396;
       color: white;
+      position: fixed; /* Fija el footer */
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      z-index: 999; /* Asegura que esté por encima de otros elementos */
+    }
+
+    /* Estilo específico para el contenedor del sobre blanco */
+    .white-envelope-container {
+      grid-column: 1 / -1; /* Ocupa toda la línea */
+      display: flex;
+      justify-content: center; /* Centra el sobre blanco */
+      padding: 1rem 0; /* Añade un poco de espacio vertical */
     }
   </style>
 </head>
@@ -186,9 +220,16 @@
     </div>
     <div class="envelope" onclick="openModal(4)">
       <div class="flap"></div>
-      <div class="body"></div>
+    <div class="body"></div>
     </div>
     <div class="envelope" onclick="openModal(5)">
+      <div class="flap"></div>
+    <div class="body"></div>
+    </div>
+  </section>
+
+  <section class="white-envelope-container">
+    <div class="envelope white" onclick="openModal(6)">
       <div class="flap"></div>
       <div class="body"></div>
     </div>
@@ -208,7 +249,6 @@
   <footer>
     Sabes de sobra que te quiero un pelín y que menos que darte este detallito para que lo tengas todo bien guardado y no pierdas ningún recuerdo.
   </footer>
-
   <script>
     const messages = [
       "Te conoci por error tuyo administrando, y este dibujo me recuerda a cuando te conoci, y ahora despues de tantos años no nos queda tanto para vernos. Sabes de sobra todo lo que pienso, eres de la persona que mas confianza tengo desde hace mucho y te has ganado el que te este contando tantas cosas que sabes que hasta hace no mucho no hubiera contado ni nada. Gracias por ayudarme tanto aunque tengas tus cosas, gracias por intentar abrirme los ojos aun sabiendo lo cabezota que soy y sigo siendo. Gracias por todo, eres una persona super maravillosa, y por muy raro que te suene, te mereces muchisimo, siempre ayudas al resto sin esperar nada a cambio y eso muy poca gente lo hace, aun despues de lo que hice aquella vez sigues estando para todo y eso lo aprecio muchisimo te lo juro. Te has ganado todo lo que te dan, y mucho mas de lo que tu crees, no cambies nunca porfavor.",
@@ -216,7 +256,8 @@
       "Foton que pondría de banner en algún sitio, aunque te haya conocido por un juego y unos personajes, cada vez que roleaba decia cosas que realmente pensaba, en plan me caiste bien desde que te conoci y nunca fue solo rol eso y creo que se ha notado o eso espero. Desde el primer momento se notaba que eres buena persona, dabas buenas vibras solo por escucharte hablar, porque realmente no te conocia de otra manera y te juro que se nota muchisimo y ya cuando te conocen bien se te nota muchisimo mas, tienes un corazon increible y me vas a tener para todo lo que necesites o te haga falta siempre porque te lo mereces muchisimo y has estado ahi para mi y ya no solo para mi, para muchisima gente y para gente que no se lo merecia tampoco, pero estuviste ahi porque tienes un pto corazon increible priss, y quien no lo vea o no pueda verlo es una persona super estupida como dirias tu.",
       "Foton que sacaste mientras estaba afk y me tuviste que llevar cargada por todo el mapa hasta que volviese. Y no queria recordar esto pero se que lo pasate muy mal cuando me dio por alejarme solo para que no notases que estaba mal, queria hablarte mucho antes de lo que lo hice pero me cagaba siempre porque se que estabas mal y volviendo asi por la cara sabiendo todo lo que te hice pasar no me gustaba mucho. Pero escribi el texto igualmente y se lo enseñe a mi hermana y decidio enviarlo ella, bueno, obligarme a hacerlo y es de la mejor cosa que ha podido hacer. Gracias por entender eso, por no estar rarisima luego que seria lo mas normal del mundo y ahora estar asi apoyandome en todo esto que no es nada facil y aunque no me gusta nada que me vean mal, no se como has conseguido que te cuente las cosas que me pasan o que me rayan muchisimo, pero te lo agradezco muchisimo porque aunque yo crea que no me hace falta, si me hacia y me he dado cuenta luego.",
       "Tus admins de confianza siempre, aunque falte la tutyfruty, he disfrutado muchisimo rolear contigo y con tuty tambien, por eso sigo pensando que deberiamos de volver, porque al final fui muyy feliz ahi y las risas nunca faltaban. Aunque la tuty casi nunca estaba, pero esos años fueron los mejores desde que tengo pc y conoceros ya no solo a vosotros sino a mas personas ha sido increible. Aunque con las unicas que me quedo sois vosotras, os quiero un monton, y guardate bien esto porque dudo volver a decir esto. Estoy siendo demasiado cursi poniendo todo esto, pero al final es la verdad, me distrai de muchisimas cosas gracias a estar todo el dia entreteniendome y divirtiendome y por eso os debo mucho, y mas a ti por todo lo que haces chula.",
-      "Mia solucionando las ralladas de Sara, igual que ahora tu estas solucionando las mias. Gracias y aunque te diga 20000 veces gracias nunca seran suficientes, quiero que enserio si algun dia estas mal que me avises, quiero poder ayudarte igual que lo haces tu conmigo aunque sabes que no me gusta que me ayuden a nada. Que si te sientes sola que me avises que estoy para ti y para lo que necesites, que estoy orgullosisima de ti, de la persona que eres y de la persona que aun te falta por convertirte, que te curras todo muchisimo y haces todo con un corazon increible que es para admirar. Que te mereces todo lo bueno que te pasa y no quiero que dudes de eso nunca. Nunca quiero que te compares, te menosprecies por alguna persona subnormal, que hay muchas en este mundo. Que eres una persona increible priss y no me cansare de repetirtelo chula, que aunque la gente sea una mierda tu sigues portandote bien con ellos y no existe gente asi apenas, eres muy madura para la edad que tienes, por eso por un momento pense que tenias mas edad que yo y me sorprendio ver que no y que eras mas pequeña. No cambies nunca por nadie ni por nada porque vales muchisimo priss, te quiero mucho, disfruta de hoy vale? aunque se que no te gusta mucho este dia, pero te lo mereces mas que nadie.💜"
+      "Mia solucionando las ralladas de Sara, igual que ahora tu estas solucionando las mias. Gracias y aunque te diga 20000 veces gracias nunca seran suficientes, quiero que enserio si algun dia estas mal que me avises, quiero poder ayudarte igual que lo haces tu conmigo aunque sabes que no me gusta que me ayuden a nada. Que si te sientes sola que me avises que estoy para ti y para lo que necesites, que estoy orgullosisima de ti, de la persona que eres y de la persona que aun te falta por convertirte, que te curras todo muchisimo y haces todo con un corazon increible que es para admirar. Que te mereces todo lo bueno que te pasa y no quiero que dudes de eso nunca. Nunca quiero que te compares, te menosprecies por alguna persona subnormal, que hay muchas en este mundo. Que eres una persona increible priss y no me cansare de repetirtelo chula, que aunque la gente sea una mierda tu sigues portandote bien con ellos y no existe gente asi apenas, eres muy madura para la edad que tienes, por eso por un momento pense que tenias mas edad que yo y me sorprendio ver que no y que eras mas pequeña. No cambies nunca por nadie ni por nada porque vales muchisimo priss, te quiero mucho, disfruta de hoy vale? aunque se que no te gusta mucho este dia, pero te lo mereces mas que nadie.💜",
+      "Feliz cumpleaños priss, que decirte que ya no lo sepas..Sabes lo muchisisisimo que te tengo que agradecer, porque esas cosas no las hace cualquiera. Aun habiendome portado tan mal aquella vez.Te quiero mucho mucho mucho y por mucho que no me gusten los abrazos te juro que cuando te vea te doy uno largo, porque no hay persona que se lo merezca mas que tu.Gracias por estar ahi siempre, porque decirme lo que tengo que escuchar y no lo que quiero escuchar, hay muy poca gente que es capaz de eso. Y has tenido razon en casi todo. Eres una persona increible, con un corazon que poca gente tiene. Vales muchisisimo y nunca dudes de eso porque te pego.Me vas a tener siempre siempre para todo, que si no hay nadie, a lo lejos estare yo aplaudiendo y estando orgullosa de todo lo que haces, le pones mucho esfuerzo a las cosas que de verdad te importan y no solo con las cosas, con las personas también.Te juro que siempre eres mi “ojala estes aqui” porque se que cambiaria muchisimas cosas, por mucha distancia que haya has hecho cosas que no ha conseguido nadie excepto ya sabes quien, que ella consiguio cosas que nunca pense que alguien conseguiria pero esto no es parq hablar de ella porque le tienes muchisisisimo asco. Te mereces todo lo bonito del mundo Priss y ojala algun dia alguien te haga verlo y te lo creas.Se que este dia no te gusta pero intentare hacer que algun dia si te guste y que no estes mal este dia.Te he dicho muchas cosas ya por tiktok compartiendote videos que me salen, pero enserio que ojala poder quedarme yo con el posible dolor que te lleguen a hacer y tu estes bien, porque te lo mereces muchisimo Priss.Gracias por estar siempre, y a pesar de la distancia estes mas que personas que si que esten cerca. Eso dice mucho y ojala que siga siempre asi, pero estando cerca porfavor.Disfruta de hoy vale? Que te lo mereces mas que nadie y por mucho que falte gente que quieres pasatelo bien y se feliz porfavor, que seguro que esas personas lo ultimo que querrian es que estes triste este dia solo porque ellos falten. Ojala poder estar ahi contigo este dia y hacer que la pases bien y no estes triste y asi con suerte no lo odies tanto, pero sabes que no puedo. Espero al menos el siguiente si poder ir y hacer que eso cambie un poco aunque sea. Te quiero muchisisisisisisimo y estoy aqui para cualquier cosita vale? 💜"
     ];
 
     const mediaContent = [
@@ -225,7 +266,8 @@
       `<img src="tumbadas.png" alt="Tumbadas">`,
       `<img src="foton.png" alt="Foton">`,
       `<img src="admins.png" alt="Admins">`,
-      `<img src="sentadas2.png" alt="Sentadas">`
+      `<img src="sentadas2.png" alt="Sentadas">`,
+      `` // Sin imagen o video para este sobre
     ];
 
     function openModal(index) {
@@ -236,12 +278,20 @@
 
       modal.classList.add('open');
       media.innerHTML = mediaContent[index];
-      text.textContent = messages[index]; // Sin animación
+      text.textContent = messages[index];
+
+      // Comprobamos si no hay contenido multimedia para este índice
+      if (mediaContent[index] === '') {
+        container.classList.add('only-text'); // Añadimos la clase para ajustar el diseño
+      } else {
+        container.classList.remove('only-text'); // Removemos la clase si hay contenido multimedia
+      }
     }
 
     function closeModal(e) {
       if (!e.target.closest('.letter-container')) {
         document.getElementById('modal').classList.remove('open');
+        document.getElementById('letterContainer').classList.remove('only-text'); // Removemos la clase al cerrar el modal
       }
     }
   </script>
